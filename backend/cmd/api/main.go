@@ -1,19 +1,14 @@
-package main
+package main 
+
 import (
-	"fmt"
 	"net/http"
+	"github.com/gorilla/mux"
+	"github.com/niaragorn7/Ordane/cmd/routes"
 )
 
-func homeHandler(w http.ResponseWriter, r *http.Request){
-	fmt.Fprintf(w, "Helloooooooo")
-}
+func main(){
+	r := mux.NewRouter()
+	r.HandleFunc("/", routes.HomeHandler).Methods("GET")
+	http.ListenAndServe(":3000", r)
 
-func  aboutHandler(w http.ResponseWriter, r *http.Request){
-	fmt.Fprintf(w, "about DicoPatito")
-}
-
-func main() {
-	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/about", aboutHandler)
-    http.ListenAndServe(":8080", nil)
 }
